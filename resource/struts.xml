@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts SYSTEM "struts/struts-2.3.dtd">
+<struts>
+	<!--请求路径是host/工程名/package name/action name例如： http://79k5epa9la54osh:8080/sshTest/talentMarket/user_list -->
+
+	<package name="order" namespace="org.jiumao.order.action">
+		<action name="order_*" class="OrderAction" method="{1}">
+			<result name="detail">/WEB-INF/jsp/orderAction/detail.jsp</result>
+			<result name="list">/WEB-INF/jsp/orderAction/list.jsp</result>
+		</action>
+	</package>
+
+
+
+	<package name="talentMarket" namespace="org.jiumao.talentMarket.action">
+		<action name="activity_*" class="ActivityAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/ActivityAction/list.jsp
+			</result>
+			<result name="list4Shop">/WEB-INF/jsp/ActivityAction/list4ShopUI.jsp
+			</result>
+			<result name="addUI">/WEB-INF/jsp/ActivityAction/addUI.jsp
+			</result>
+			<result name="detail">/WEB-INF/jsp/ActivityAction/detail.jsp
+			</result>
+			<result name="addPlanningUI">/WEB-INF/jsp/ActivityAction/addPlanningUI.jsp
+			</result>
+
+		</action>
+		<action name="activityPlanning_*" class="ActivityPlanningAction"
+			method="{1}">
+			<result name="addChildrenPlanningUI">/WEB-INF/jsp/ActivityAction/addChildrenPlanningUI.jsp
+			</result>
+			<result name="addChildrenPlanningList">/WEB-INF/jsp/ActivityAction/addChildrenPlanningList.jsp
+			</result>
+			<result name="post">/WEB-INF/jsp/ActivityAction/addChildrenPlanningList.jsp
+			</result>
+
+
+		</action>
+		<action name="global_*" class="LoginAction" method="{1}">
+			<result name="index">/index.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="chen" namespace="com.chen.action">
+		<action name="user_*" class="UserAction" method="{1}">
+			<result name="login">/WEB-INF/jsp/ActivityAction/list.jsp</result>
+			<result name="loginUI">/WEB-INF/jsp/user/login.jsp</result>
+			<result name="registerUI">/WEB-INF/jsp/user/regist.jsp</result>
+			<result name="index">/WEB-INF/jsp/user/index.jsp</result>
+			<result name="quit">/WEB-INF/jsp/user/index.jsp</result>
+			<result name="listAllUI">/WEB-INF/jsp/user/user.jsp</result>
+			<result name="delete">/message.jsp</result>
+		</action>
+		<action name="check_" class="CheckImgAction" method="{1}">
+
+		</action>
+
+		<action name="privilege_*" class="PrivilegeAction" method="{1}">
+			<result name="listPrivilegeUI">/WEB-INF/jsp/user/privilege.jsp</result>
+			<result name="setPrivilegeForRole">/message.jsp</result>
+		</action>
+
+		<action name="role_*" class="RoleAction" method="{1}">
+			<result name="addRoleUI">/WEB-INF/jsp/user/addRole.jsp</result>
+			<result name="listRoleUI">/WEB-INF/jsp/user/role.jsp</result>
+			<result name="updateUI">/WEB-INF/jsp/user/updateRole.jsp</result>
+			<result name="setRoleForUserUI">/WEB-INF/jsp/user/setRoleForUser.jsp</result>
+			<result name="addrole">/message.jsp</result>
+			<result name="update">/message.jsp</result>
+			<result name="message">/message.jsp</result>
+		</action>
+
+		<action name="product_*" class="ProductAction" method="{1}">
+			<result name="addproductUI">/WEB-INF/jsp/user/addProduct.jsp</result>
+			<result name="listUI">/WEB-INF/jsp/user/allProduct.jsp</result>
+			<result name="addProduct">/message.jsp</result>
+		</action>
+	</package>
+
+</struts>
+

@@ -1,0 +1,98 @@
+.class1{
+	width: auto;
+	height: auto;
+	margin-top:10px;
+	margin-right:20px;
+	float:right;
+	background: url(../cssPic/top.jpg);
+}
+.class2{
+	width: auto;
+	height: auto;
+	margin-top:50px;
+	margin-right:20px;
+	float:left;
+	background: url(../cssPic/top.jpg);
+}
+.span10 last{
+	width: auto;
+	height: 100px;
+}
+.div1{
+	width: auto;
+	height: 20;
+	margin-right: 200px;
+	
+}
+.div2{
+	width: auto;
+	height: 20;
+	margin-left: 100px;
+	
+}
+#menu{
+	width:auto;
+	height: 100px;
+	padding-bottom:10px;
+	background-color: #BBFFEE;
+}
+.hr{
+	width: 1200;
+}
+td{
+	width: 100px;
+	height: auto;
+	background-color:#BBFFEE; 
+}
+body{
+	background: #BBccFF;
+}
+input{
+	background: #AACCEE;
+}
+#left{
+	width: 180px;
+	height: 800px;
+	margin-left: 10px;
+	border:solid;
+}
+.category{
+		width: auto;
+	height: auto;
+	margin-top:10px;
+	margin-right:20px;
+	float:none;
+	background: url(../cssPic/top.jpg);
+}
+.register{
+	width: auto;
+	height: auto;
+	
+	background: url(../cssPic/background.jpg);
+}
+#index_left{
+	width: 150px;
+	height: 800px;
+	float:left;
+	margin-left:3px;
+	
+	
+}
+#index_right{
+	width: 300;
+	height: auto;
+	border: thin;
+	
+}
+#index_right2{
+	width: auto;
+	height: auto;
+	float: right;
+}
+#index_context{
+	width: auto;
+	height: auto;
+	margin:10px;
+	border:thin;
+	border-color: purple;
+}
