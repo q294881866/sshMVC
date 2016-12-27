@@ -12,7 +12,7 @@ import java.util.List;
 
 
 
-import spring.SpringSingletonFactory;
+import spring.SpringFactory;
 
 
 public  class BaseServiceImpl<T extends BaseBean> implements BaseService<T>{
@@ -32,7 +32,7 @@ public  class BaseServiceImpl<T extends BaseBean> implements BaseService<T>{
 		//从spring beanfactory中获取bean
 		String clazzSimpleName = clazz.getSimpleName();
 		clazzSimpleName = clazzSimpleName.substring(0, 1).toLowerCase()+clazzSimpleName.substring(1)+"Dao";
-		 baseDao = (DaoSupport) SpringSingletonFactory.getBean(clazzSimpleName);
+		 baseDao = (DaoSupport) SpringFactory.getBean(clazzSimpleName);
 	}
 	
 	public int save(Object... parameters) throws Exception {

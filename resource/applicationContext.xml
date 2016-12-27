@@ -21,10 +21,6 @@
 	<bean id="activityService" class="org.jiumao.talentMarket.service.ActivityServiceImpl"></bean>
 	<bean id="activityPlanningService" class="org.jiumao.talentMarket.service.ActivityPlanningServiceImpl"></bean>
 	<bean id="orderService" class="org.jiumao.order.service.OrderServiceImpl"></bean>
-	<bean id="userService" class="com.chen.service.UserServiceImpl" />
-	<bean id="privilegeService" class="com.chen.service.PrivilegeServiceImpl" />
-	<bean id="roleService" class="com.chen.service.RoleServiceImpl" />
-	<bean id="productService" class="com.chen.service.ProductServiceImpl" /> 
 	
 	
 	<!-- database beans configure -->
@@ -34,10 +30,6 @@
 	<bean id="activityPlanningDao" class="org.jiumao.talentMarket.dao.ActivityPlanningDaoImpl" ></bean>
 	<bean id="orderDao" class="org.jiumao.order.dao.OrderDaoImpl" ></bean>
 	
-	<bean id="userDao" class="com.chen.dao.UserDaoImpl" ></bean>
-	<bean id="privilegeDao" class="com.chen.dao.PrivilegeDaoImpl" ></bean>
-	<bean id="roleDao" class="com.chen.dao.RoleDaoImpl" ></bean>
-	<bean id="productDao" class="com.chen.dao.ProductDaoImpl" ></bean>
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ redis集群链接问题 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 	<bean id = "shardedJedisPool" class = "redis.clients.jedis.ShardedJedisPool">
     <constructor-arg index="0" ref="jedisPoolConfig"/>

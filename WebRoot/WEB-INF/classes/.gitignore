@@ -1,10 +1,2 @@
-/applicationContext.xml
-/base
-/jdbcUtils
-/log4j.properties
-/org
-/spring
 /struts
-/struts.xml
 /test
-/utils

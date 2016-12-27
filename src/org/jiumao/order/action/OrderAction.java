@@ -9,11 +9,11 @@ import org.jiumao.order.domin.OrderDetail;
 import org.jiumao.talentMarket.domain.Goods;
 import org.jiumao.talentMarket.service.GoodsService;
 
-import spring.SpringSingletonFactory;
+import spring.SpringFactory;
 import base.BaseAction;
 
 public class OrderAction extends BaseAction<Order> {
-	GoodsService goodsService = (GoodsService) SpringSingletonFactory
+	GoodsService goodsService = (GoodsService) SpringFactory
 			.getBean("goodsService");
 
 	public OrderAction() {

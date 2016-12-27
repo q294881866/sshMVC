@@ -11,13 +11,13 @@ import org.jiumao.talentMarket.dao.ActivityPlanningDao;
 import org.jiumao.talentMarket.dao.GoodsDao;
 import org.jiumao.talentMarket.domain.ActivityPlanning;
 
-import spring.SpringSingletonFactory;
+import spring.SpringFactory;
 import base.BaseServiceImpl;
 
 public class ActivityPlanningServiceImpl extends BaseServiceImpl<ActivityPlanning> implements ActivityPlanningService {
 
-	GoodsDao goodsDao = (GoodsDao)SpringSingletonFactory.getBean("goodsDao");
-	ActivityDao activityDao = (ActivityDao)SpringSingletonFactory.getBean("activityDao");
+	GoodsDao goodsDao = (GoodsDao)SpringFactory.getBean("goodsDao");
+	ActivityDao activityDao = (ActivityDao)SpringFactory.getBean("activityDao");
 	ActivityPlanningDao dao = (ActivityPlanningDao)baseDao;
 	public ActivityPlanning getActivityPlanningByActivityId(Integer id) {
 		return dao.getActivityPlanningByActivityId(id);

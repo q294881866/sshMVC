@@ -4,7 +4,7 @@ import java.lang.reflect.ParameterizedType;
 
 import org.apache.log4j.Logger;
 
-import spring.SpringSingletonFactory;
+import spring.SpringFactory;
 import struts.ActionSupport;
 
 
@@ -26,7 +26,7 @@ public abstract class BaseAction<T extends BaseBean> extends ActionSupport{
 			clazzSimpleName = clazzSimpleName.substring(0, 1).toLowerCase()+clazzSimpleName.substring(1)+"Service";
 			Logger logger = Logger.getLogger(BaseAction.class);
 			logger.debug("clazzSimpleName ="+clazzSimpleName);
-			baseService = (BaseService<T>) SpringSingletonFactory.getBean(clazzSimpleName);
+			baseService = (BaseService<T>) SpringFactory.getBean(clazzSimpleName);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);

@@ -18,7 +18,7 @@ import org.jiumao.talentMarket.service.ActivityPlanningService;
 import org.jiumao.talentMarket.service.ActivityService;
 import org.jiumao.talentMarket.service.GoodsService;
 
-import spring.SpringSingletonFactory;
+import spring.SpringFactory;
 import base.BaseAction;
 
 /**
@@ -27,8 +27,8 @@ import base.BaseAction;
  *			返回json字符串
  */
 public class ActivityAction extends BaseAction<Activity>{
-	GoodsService goodsService = (GoodsService)SpringSingletonFactory.getBean("goodsService");
-	ActivityPlanningService  activityPlanningService= (ActivityPlanningService)SpringSingletonFactory.getBean("activityPlanningService");
+	GoodsService goodsService = (GoodsService)SpringFactory.getBean("goodsService");
+	ActivityPlanningService  activityPlanningService= (ActivityPlanningService)SpringFactory.getBean("activityPlanningService");
 	ActivityService baseService = (ActivityService)super.baseService;
 	
 	Logger logger = Logger.getLogger(ActivityAction.class);

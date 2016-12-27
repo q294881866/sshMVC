@@ -13,7 +13,6 @@ public abstract class ActionSupport {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	public void setRequestAndResponse(HttpServletRequest req,HttpServletResponse res) {
-//		System.out.println("HttpServletRequest=="+req+" HttpServletResponse= "+res);
 		this.request = req;
 		this.response = res;
 		
