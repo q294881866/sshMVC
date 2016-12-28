@@ -1,21 +1,17 @@
 package struts;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * 用于保存Struts.xml每个package数据
- * 
- * @author Administrator
- * 
  */
 public class PackageEntity {
 
 	private String id;// 包唯一命名对应name
-	private String packageName;// 包名，对应class
-	private Map<String, ActionEntity> actionEntities = new HashMap<>();// Package的子属性
+	private String packageName;// 包名，对应namespace
+	// Package的 action节点。
+	private Map<String/*action name*/, ActionEntity> actions = new HashMap<>();
 
 	public String getId() {
 		return id;
@@ -33,44 +29,33 @@ public class PackageEntity {
 		this.packageName = packageName;
 	}
 
-	/**
-	 * 添加一个action实体
-	 * 
-	 * @param method
-	 * @param actionClass
-	 * @param actionName
-	 * @return
-	 * @throws ClassNotFoundException
-	 */
 	public ActionEntity addAction(String method, String className,
 			String actionName) throws ClassNotFoundException {
 		ActionEntity a = new ActionEntity(actionName,
 				Class.forName(this.packageName + "." + className), method);
-		this.actionEntities.put(actionName, a);
+		this.actions.put(actionName, a);
 		return a;
 	}
 
-	/**
-	 * 获取一个Action
-	 * 
-	 * @param key
-	 * @return
-	 */
 	public ActionEntity getAction(String key) {
-		return this.actionEntities.get(key);
+		return this.actions.get(key);
 	}
 
 	public ActionEntity delAction(String key) {
-		return this.actionEntities.remove(key);
+		return this.actions.remove(key);
 	}
 
 }
 
+/**
+ * action节点，包含多个result节点
+ */
 class ActionEntity {
 	private String actionName;// action 中name
 	private Class actionClass;// action 中class
 	private String method;// action 中method
-	private Map<String,ResultEntity> resultEntities = new HashMap<>();// action中子属性result
+	// action中子属性result
+	private Map<String/*result name*/,ResultEntity> results = new HashMap<>();
 
 	public ActionEntity(String actionName, Class actionClass, String method) {
 		super();
@@ -104,45 +89,49 @@ class ActionEntity {
 	}
 
 	public ResultEntity getResult (String key) {
-		return resultEntities.get(key);
+		return results.get(key);
 	}
 
 	public ResultEntity addResult(String resultName, String resultValue) {
-		return resultEntities.put(resultName,new ResultEntity(resultName, resultValue));
+		return results.put(resultName,new ResultEntity(resultName, resultValue));
 	}
 	
 	public ResultEntity delResult(String resultName) {
-		return resultEntities.remove(resultName);
+		return results.remove(resultName);
 	}
 }
 
+/**
+ * result节点描述
+ */
 class ResultEntity {
-	private String resultName;// result 中name属性
-	private String resultValue;// 跳转到的值
-	public ResultEntity(String resultName, String resultValue) {
+	private String name;// result 中name属性
+	private String value;// 跳转到的值
+	public ResultEntity(String name, String value) {
 		super();
-		this.resultName = resultName;
-		this.resultValue = resultValue;
+		this.name = name;
+		this.value = value;
 	}
 
 	@Override
 	public String toString() {
-		return resultName + "  " + resultValue;
+		return name + "  " + value;
 	}
 
-	public String getResultName() {
-		return resultName;
+	public String getName() {
+		return name;
 	}
 
-	public void setResultName(String resultName) {
-		this.resultName = resultName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getResultValue() {
-		return resultValue;
+	public String getValue() {
+		return value;
 	}
 
-	public void setResultValue(String resultValue) {
-		this.resultValue = resultValue;
+	public void setValue(String value) {
+		this.value = value;
 	}
+
 }

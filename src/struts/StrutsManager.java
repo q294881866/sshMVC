@@ -19,23 +19,20 @@ import org.dom4j.io.SAXReader;
 /**
  * 加载Struts配置文件<br>
  * 返回一个配置文件解析实例
- * 
- * @author ppf@jiumao.org
- * @date 2016年12月26日
  */
 public class StrutsManager {
 
 	private Map<String, PackageEntity> packageEntities;
-	private SAXReader saxReader;
+	private SAXReader saxReader;// dom4j xml解析
 	private Document document;
 
 	private StrutsManager(File inputXml) throws DocumentException,
 			ClassNotFoundException {
 		packageEntities = new HashMap<String, PackageEntity>();
-		saxReader = new SAXReader();
+		saxReader = new SAXReader();// io流转document结构
 		document = saxReader.read(inputXml);
 
-		parse();
+		parse();// 从document中解析成需要的java数据结构
 	}
 
 	/**
@@ -52,19 +49,7 @@ public class StrutsManager {
 	}
 
 	/**
-	 * 动态添加一个模块
-	 * 
-	 * @param p
-	 */
-	public void addPackage(PackageEntity p) {
-		synchronized (packageEntities) {
-			this.packageEntities.put(p.getId(), p);
-		}
-	}
-
-	/**
-	 * 解析配置文件到特定的数据结构
-	 * 
+	 * 层次遍历Document到特定的数据结构
 	 * @throws ClassNotFoundException
 	 */
 	private void parse() throws ClassNotFoundException {
@@ -74,27 +59,33 @@ public class StrutsManager {
 		// 1.package
 		for (Element packageEle : packages) {// 遍历所有一级子节点
 			p = loadPackage(packageEle);
-
 			// 2.action
 			Iterator<?> actions = packageEle.elementIterator();
 			while (actions.hasNext()) {
 				Element action = (Element) actions.next();
-
-				ActionEntity actionEntity = loadAction(p, action);
-
+				ActionEntity a = loadAction(p, action);
 				// 3.result
 				Iterator<Element> results = action.elementIterator();
 				while (results.hasNext()) {
 					Element result = results.next();
-					// 获取name和class,method属性
-					String resultName = getAttrValue(result, "name");
-					String resultValue = result.getTextTrim();
-					actionEntity.addResult(resultName, resultValue);
+					loadResult(a, result);
 				}
-
 			}
 			packageEntities.put(p.getId(), p);
 		}
+	}
+
+	/**
+	 * action中添加result节点
+	 * @param a
+	 *            action
+	 * @param result
+	 *            Document中result节点
+	 */
+	public void loadResult(ActionEntity a, Element result) {
+		String name = getAttrValue(result, "name");
+		String value = result.getTextTrim();
+		a.addResult(name, value);
 	}
 
 	/**
@@ -127,40 +118,38 @@ public class StrutsManager {
 		return p;
 	}
 
+	/**
+	 * 上线一个模块 
+	 */
+	public PackageEntity addPackage(PackageEntity p) {
+		synchronized (packageEntities) {
+			return this.packageEntities.put(p.getId(), p);
+		}
+	}
+	
+	/**
+	 * 下线一个模块 
+	 */
+	public PackageEntity delPackage(PackageEntity p) {
+		synchronized (packageEntities) {
+			return this.packageEntities.remove(p.getId());
+		}
+	}
+
+	/**
+	 * 获取文档节点属性的值
+	 * @param e	    节点元素
+	 * @param key 节点属性名
+ 	 * @return
+	 */
 	private String getAttrValue(Element e, String key) {
 		if (null == e)
 			return null;
 		return e.attribute(key).getData().toString();
 	}
 
-	@SuppressWarnings("unchecked")
-	public String invoke(StringBuffer url, HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
-		// 3.获取请求的action，如/weixin/user_test_list，获取weixin和user_test_list
-		String[] urltemp = url.toString().split("/");
-		int last = urltemp.length - 1;
-		String id = urltemp[last - 1];// weixin
-		String[] tmp = urltemp[last].split("_");// user_test_list
-		String methodName = tmp[tmp.length - 1];// list
-		String action = urltemp[last].replace(methodName, "") + "*";// user_test_*
-
-		ActionEntity a = packageEntities.get(id).getAction(action);
-		Class<ActionSupport> atctionClass = a.getActionClass();
-
-		ActionSupport actionSupport = atctionClass.newInstance();
-		// 传入request、response
-		actionSupport.setRequestAndResponse(req, res);
-
-		Method m = atctionClass.getMethod(methodName, null);
-		// 如果返回值类型是String执行返回结果
-		if (String.class.isAssignableFrom(m.getReturnType())) {
-			String res1 = (String) m.invoke(actionSupport, null);
-			return a.getResult(res1).getResultValue();
-		} else if ("void".equals(m.getReturnType().toString())) {
-			m.invoke(actionSupport, null);
-			return "void";
-		}
-		return null;
+	public PackageEntity getPackage(String key) {
+		return packageEntities.get(key);
 	}
 
 }
