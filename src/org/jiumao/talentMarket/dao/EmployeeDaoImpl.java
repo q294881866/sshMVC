@@ -13,7 +13,7 @@ public class EmployeeDaoImpl extends DaoSupportImpl<Employee> implements Employe
 	public Employee login(String userName, String password) {
 		try {
 			System.out.println("employeedaoImpl");
-			return (Employee) mySqlWriterSessionFactory.getObject(
+			return (Employee) getSession().getObject(
 					EmployeeSql.findUserByUserNameAndPassword, Employee.class,
 					userName, password);
 		} catch (Exception e) {

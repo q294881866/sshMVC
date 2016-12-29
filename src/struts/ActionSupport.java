@@ -7,7 +7,9 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ * 所有action的父类模板
+ */
 public abstract class ActionSupport {
 
 	protected HttpServletRequest request;

@@ -3,8 +3,6 @@ package jdbcUtils.core;
 /**
  * Java异常创建练习
  * example 数据库异常
- * @author Administrator
- *
  */
 public class DaoException extends RuntimeException {
 
@@ -14,7 +12,7 @@ public class DaoException extends RuntimeException {
 	 * 如果有有参数的构造方法，则不默认生成无参构成方法
 	 */
 	public DaoException() {
-		// TODO 这个注释表明这里没有完成 在Task任务栏可以找到
+		// TODO 这个注释表明这里没有完成 在Tasks任务栏可以找到
 		
 	}
 

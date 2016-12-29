@@ -15,7 +15,7 @@ import java.util.List;
 import spring.SpringFactory;
 
 
-public  class BaseServiceImpl<T extends BaseBean> implements BaseService<T>{
+public abstract class BaseServiceImpl<T extends BaseBean> implements BaseService<T>{
 
 	
 

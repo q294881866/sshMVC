@@ -36,8 +36,7 @@ public class StrutsManager {
 	}
 
 	/**
-	 * 读取配置文件，返回一个
-	 * 
+	 * StrutsManager工厂根据配置文件生成实例
 	 * @param inputXml
 	 * @return
 	 * @throws ClassNotFoundException
@@ -90,8 +89,8 @@ public class StrutsManager {
 
 	/**
 	 * 获取所有action节点,并赋值ActionEntity <br>
-	 * 1. {@code action name="user_*" class="UserAction" method=" 1}" <br>
-	 * 2. name:actionName，class:className,method:methodName
+	 * 1. <code> action name="user_*" class="UserAction" method="{1}" </code><br>
+	 * 2. name:actionName，class:className，method:methodName
 	 * 
 	 * @throws ClassNotFoundException
 	 */

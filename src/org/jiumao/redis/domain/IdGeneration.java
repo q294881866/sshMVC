@@ -1,13 +1,13 @@
 package org.jiumao.redis.domain;
 
 
-import jdbcUtils.core.IdGenerator;
+import jdbcUtils.IdGenerator;
 
 import org.jiumao.redis.JedisPoolUtils;
 
 import redis.clients.jedis.Jedis;
 
-public class IdGeneration implements IdGenerator{
+public class IdGeneration implements IdGenerator<Integer>{
 	
 	public static final String ActivityId = "ActivityId";
 	public static final String ActivityPlanningId = "ActivityPlanningId";
@@ -28,7 +28,7 @@ public class IdGeneration implements IdGenerator{
 		JedisPoolUtils.free(connection);
 	}*/
 
-	 public int getId(){
+	 public Integer getId(){
 		 Jedis connection = JedisPoolUtils.getConnection();
 		 connection.select(9);//选择9号数据库
 		 int id = Integer.parseInt(connection.get(IDName));

@@ -18,9 +18,8 @@ public class ActivityDaoImpl extends DaoSupportImpl<Activity> implements Activit
 
 	@Override
 	public int setHandler(Integer superId, Integer activityId) {
-		// TODO Auto-generated method stub
 		try {
-			return mySqlWriterSessionFactory.update(ApproveSql.setHandlerWithActivityIdByEmployeeId, superId,activityId);
+			return update(ApproveSql.setHandlerWithActivityIdByEmployeeId, superId,activityId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -29,7 +28,7 @@ public class ActivityDaoImpl extends DaoSupportImpl<Activity> implements Activit
 
 	@Override
 	public Integer getSuperId(Integer employeeId) {
-		Connection con = mySqlWriterSessionFactory.getSession();
+		Connection con = getSession().getConn();
 		try {
 			PreparedStatement ps = con.prepareStatement(ApproveSql.getSuperId);
 			ps.setInt(1, employeeId);
@@ -38,7 +37,6 @@ public class ActivityDaoImpl extends DaoSupportImpl<Activity> implements Activit
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -48,9 +46,8 @@ public class ActivityDaoImpl extends DaoSupportImpl<Activity> implements Activit
 	@Override
 	public int passed(Integer activityId) {
 		try {
-			return mySqlWriterSessionFactory.update(ActivitySql.submit, activityId);
+			return update(ActivitySql.submit, activityId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -59,9 +56,8 @@ public class ActivityDaoImpl extends DaoSupportImpl<Activity> implements Activit
 	@Override
 	public List getSubmitActivitys(int begin, int offset) {
 		try {
-			return mySqlWriterSessionFactory.getObjects(ActivitySql.getSubmitActivitys, Activity.class, begin,offset);
+			return getSession().getObjects(ActivitySql.getSubmitActivitys, Activity.class, begin,offset);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

@@ -1,17 +1,9 @@
 package jdbcUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-
 /**
  * 用于辅助拼接Sql语句
- * 
- * @author tyg
- * 
  */
-public abstract class QueryHelper {
+public abstract class SqlUtil {
 	/** "  , "*/
 	protected String dot = " ,";//注意是否需要空格
 	/** " select"*/
@@ -35,15 +27,13 @@ public abstract class QueryHelper {
 	 * @param condition
 	 * @param params
 	 */
-	public QueryHelper addCondition(String condition) {
+	public SqlUtil addCondition(String condition) {
 		// 拼接
 		if (whereClause.length() == 0) {
 			whereClause = " WHERE " + condition;
 		} else {
 			whereClause += " AND " + condition;
 		}
-
-
 		return this;
 	}
 
@@ -54,7 +44,7 @@ public abstract class QueryHelper {
 	 * @param condition
 	 * @param params
 	 */
-	public QueryHelper addCondition(boolean append, String condition) {
+	public SqlUtil addCondition(boolean append, String condition) {
 		if (append) {
 			addCondition(condition);
 		}
@@ -69,7 +59,7 @@ public abstract class QueryHelper {
 	 * @param asc
 	 *            true表示升序，false表示降序
 	 */
-	public QueryHelper addOrderProperty(String propertyName, boolean asc) {
+	public SqlUtil addOrderProperty(String propertyName, boolean asc) {
 		if (orderByClause.length() == 0) {
 			orderByClause = " ORDER BY " + propertyName + (asc ? " ASC" : " DESC");
 		} else {
@@ -85,7 +75,7 @@ public abstract class QueryHelper {
 	 * @param propertyName
 	 * @param asc
 	 */
-	public QueryHelper addOrderProperty(boolean append, String propertyName, boolean asc) {
+	public SqlUtil addOrderProperty(boolean append, String propertyName, boolean asc) {
 		if (append) {
 			addOrderProperty(propertyName, asc);
 		}

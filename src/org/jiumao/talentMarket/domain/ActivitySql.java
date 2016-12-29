@@ -1,9 +1,9 @@
 package org.jiumao.talentMarket.domain;
 
-import jdbcUtils.QueryHelper;
+import jdbcUtils.SqlUtil;
 
 
-public class ActivitySql extends QueryHelper{
+public class ActivitySql extends SqlUtil{
  
 	public static String save = "INSERT INTO `activity` (`id`,`activityName`, `goodsIds`, `activityPlanPeople`, `state`,`price`) VALUES (?,?, ?, ?, ?,?)";
 	public static String submit = "UPDATE `activity` SET `state`=1 WHERE (`id`=?)";

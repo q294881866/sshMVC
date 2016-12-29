@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ActionHandler implements Runnable {
-	private ActionSupport actionSupport;
-	private ActionEntity a;
-	private String id, action, methodName;
-	private HttpServletResponse res;
-	private HttpServletRequest req;
-	private StrutsManager manager;
-	private Method m ;
+	private ActionSupport actionSupport;//请求处理类
+	private ActionEntity a;//配置文件中的action节点
+	private String id, action, methodName;//包，类名，方法名
+	private HttpServletResponse res;//请求
+	private HttpServletRequest req;//应答
+	private StrutsManager manager;//配置文件管理类
+	private Method m ;//请求方法
 
 	public ActionHandler(HttpServletRequest req, HttpServletResponse res,
 			StrutsManager manager) {
@@ -24,10 +24,24 @@ public class ActionHandler implements Runnable {
 		this.res = res;
 		this.manager = manager;
 	}
+	
+	@Override
+	public void run() {
+		// 1.处理返回消息
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
+		// 2.不论GET或POST都可以通过getRequestURL+getParameterMap()来得到请求完整路径
+		StringBuffer url = req.getRequestURL();
+
+		try {
+			invoke(url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * 解析请求的url，找到对应的处理逻辑并返回值
-	 * 
 	 * @param url
 	 * @param req
 	 *            请求，带参数
@@ -60,7 +74,7 @@ public class ActionHandler implements Runnable {
 			}
 		} else if ("void".equals(m.getReturnType().toString())) {
 			m.invoke(actionSupport, null);
-			System.err.println("void method filter");
+			System.err.println("void method filter");//这里要写日志
 		}
 	}
 
@@ -76,6 +90,14 @@ public class ActionHandler implements Runnable {
 		m = atctionClass.getMethod(methodName, null);
 	}
 
+	/**
+	 * 请求路径的解析<br>
+	 * 如:host/application/weixin/user_test_list<br>
+	 * 1.id=weixin<br>
+	 * 2.action=user_test_*<br>
+	 * 3.methodName=list<br>
+	 * @param url
+	 */
 	public void parseUrl(StringBuffer url) {
 		String[] urltemp = url.toString().split("/");
 		int last = urltemp.length - 1;
@@ -85,18 +107,5 @@ public class ActionHandler implements Runnable {
 		action = urltemp[last].replace(methodName, "") + "*";// user_test_*
 	}
 
-	@Override
-	public void run() {
-		// 1.处理返回消息
-		res.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html;charset=UTF-8");
-		// 2.不论GET或POST都可以通过getRequestURL+getParameterMap()来得到请求完整路径
-		StringBuffer url = req.getRequestURL();
-
-		try {
-			invoke(url);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 }

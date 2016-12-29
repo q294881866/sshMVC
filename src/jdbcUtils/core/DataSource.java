@@ -6,30 +6,26 @@ import java.util.LinkedList;
 
 /**
  * 介绍建造者模式 数据库连接池实习
- * 
- * @author Administrator
- * 
  */
 public class DataSource {
 
-	private static int initCount = 1;
-	private static int maxCount = 1 << 6;
+	private int init = 1;
+	private int max = 1 << 6;
 	int currentCount = 0;
 	private MyJdbc jdbc;
 
-	// 数据库连接池<>表示泛型Connection表示只存Connection及子类这里报错了 类型不能转换
-	// LinkedList<Connection> connectionsPool = (LinkedList<Connection>)
-	// Collections.synchronizedList(new LinkedList<Connection>());
 	LinkedList<Connection> connectionsPool = new LinkedList<Connection>();
-
-	private DataSource() {
-
+	
+	public DataSource(MyJdbc jdbc) {
+		this(jdbc, 0, 0);
 	}
 
-	public DataSource(MyJdbc jdbc) {
+	public DataSource(MyJdbc jdbc,int init,int max) {
+		if (init>0)	this.init = init;
+		if (max>this.init)	this.max = max;
 		this.jdbc = jdbc;
 		try {
-			for (int i = 0; i < initCount; i++) {
+			for (int i = 0; i < init; i++) {
 				System.err.println("初始化了" + i + "条连接");
 				this.connectionsPool.addLast(jdbc.getConnection());
 				this.currentCount++;
@@ -40,22 +36,17 @@ public class DataSource {
 	}
 
 	public Connection getConnection() throws SQLException {
-		// synchronized (connectionsPool) {//没必要用并发访问
+		// synchronized (connectionsPool) {//没必要用并发控制
 		if (this.connectionsPool.size() > 0)
 			return this.connectionsPool.removeFirst();
 
 		/*
 		 * 如果当前没有连接了
 		 */
-		// 新建连接
-		if (this.currentCount < maxCount) {
+		if (this.currentCount < max) {// 新建连接
 			this.currentCount++;
 			return jdbc.getConnection();
-		}
-		// 线程休眠
-		// 1.递归调用获取连接，ps：不建议这么干如果没有连接
-		// 2.线程通讯，添加入后通知获取
-		else {
+		}else {// 线程休眠，添加入后通知获取
 			try {
 				connectionsPool.wait();
 			} catch (InterruptedException e) {
@@ -63,7 +54,6 @@ public class DataSource {
 			}
 			return getConnection();
 		}
-
 	}
 
 	public void free(Connection conn) {

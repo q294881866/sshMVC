@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdbcUtils.core.IdGenerator;
+import jdbcUtils.IdGenerator;
 
 import org.apache.log4j.Logger;
 import org.jiumao.redis.domain.IdGeneration;
