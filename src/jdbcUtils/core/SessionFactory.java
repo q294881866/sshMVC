@@ -48,7 +48,10 @@ public abstract class SessionFactory {
 	}
 	
 	public void close(Session s){
-		this.free(s.getConn());
+		if (null!=s.getConn()) {
+			this.free(s.getConn());
+			s.close();
+		}
 	}
 
 }

@@ -23,9 +23,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements Ac
 
 	@Override
 	public List findShopList(int begin, int offset) {
-		
 		return dao.getSubmitActivitys(begin, offset);
-//		return null;
 	}
 
 

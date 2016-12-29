@@ -170,6 +170,10 @@ public class Session {
 	public Connection getConn() {//getters
 		return conn;
 	}
+	
+	public void close(){//防止多次关闭
+		conn = null;
+	}
 
 	public void free(ResultSet rs, Statement st) {
 		MyJdbc.free(rs, st, null);

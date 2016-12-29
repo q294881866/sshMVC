@@ -59,7 +59,6 @@ public class ActivityPlanningServiceImpl extends BaseServiceImpl<ActivityPlannin
 			try {
 				return activityDao.getById(activityId).getPrice();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -125,9 +125,7 @@ public class GoodsServiceImpl extends BaseServiceImpl<Goods>  implements GoodsSe
 		}
 		
 		public void init() throws Exception {
-			integers = baseDao.findAllId();
-			
-			
+			integers = baseDao.findIds();
 		}
 	};
 	

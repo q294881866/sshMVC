@@ -110,7 +110,7 @@ public class ActivityAction extends BaseAction<Activity>{
 	public String detail() throws Exception{
 		Integer id =Integer.parseInt( request.getParameter("id") );
 		
-		model = (Activity) baseService.getById(id);
+		Activity model = (Activity) baseService.getById(id);
 		request.setAttribute("model", model);
 		String[] goods = model.getGoodsIds().split(";");
 		List<Goods> list = new ArrayList<>();

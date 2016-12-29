@@ -33,7 +33,7 @@ public class OrderAction extends BaseAction<Order> {
 
 	public String findById() throws Exception{
 		String id = request.getParameter("id");
-		model=(Order) baseService.getById(Integer.parseInt(id));
+		Order model=(Order) baseService.getById(Integer.parseInt(id));
 		request.setAttribute("order", model);
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		String[] goodsIds = model.getGoodsIds().split(";");
