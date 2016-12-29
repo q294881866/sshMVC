@@ -27,11 +27,10 @@ public abstract class DaoSupportImpl<T extends BaseBean> implements DaoSupport<T
 	protected static SessionFactory mySqlWriterSessionFactory = MySqlSessionFactory
 			.getSessionFactory("jdbc:mysql://127.0.0.1:3306/test", "root",
 					"", "com.mysql.jdbc.Driver");
-	protected Session session;
+	protected Session session;//每个dao对象共享一个session
 
 	private Class<T> clazz;
 	private Class<?> SqlClazz ; 
-	protected T model;
 	int resultset = -1;//设置数据库更新为失败
 	
 	protected Session getSession(){
@@ -75,9 +74,7 @@ public abstract class DaoSupportImpl<T extends BaseBean> implements DaoSupport<T
 	public T getById(Integer id) throws Exception {
 		Field field = SqlClazz.getField("getById");
 		System.out.println((String)field.get(SqlClazz));
-		model = (T) getSession().getObject((String)field.get(SqlClazz), clazz, id);
-		
-		return model;
+		return (T) getSession().getObject((String)field.get(SqlClazz), clazz, id);
 	}
 
 	public List getByIds(Integer[] ids) throws Exception {
@@ -111,7 +108,7 @@ public abstract class DaoSupportImpl<T extends BaseBean> implements DaoSupport<T
 	}
 
 	@Override
-	public List<Integer> findAllId() throws Exception {
+	public List<Integer> findIds() throws Exception {
 		List<Integer> integers = new ArrayList<>();
 		Connection con = getSession().getConn();
 		Field field = SqlClazz.getField("findAllId");
