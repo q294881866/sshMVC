@@ -1,9 +1,9 @@
 package org.jiumao.talentMarket.domain;
 
-import jdbcUtils.SqlUtil;
+import jdbcUtils.core.SQLHelper;
 
 
-public class GoodsSql extends SqlUtil{
+public class GoodsSql extends SQLHelper{
 	
 	
 	public static String findAll = "SELECT * FROM `goods` LIMIT ?, ?";

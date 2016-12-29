@@ -1,9 +1,9 @@
 package org.jiumao.talentMarket.domain;
 
-import jdbcUtils.SqlUtil;
+import jdbcUtils.core.SQLHelper;
 
 
-public class ActivityPlanningSql extends SqlUtil{
+public class ActivityPlanningSql extends SQLHelper{
 	
 	
 	public static String save = "INSERT INTO `activityPlanning` (`id`, `minPrice`, `maxDiscount`, `minNums`, `maxNums`, `discount`,`parentId`, `useChildsPlanning`, `step`, `activityId`,`goodsId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
