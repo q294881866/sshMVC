@@ -6,7 +6,9 @@ package jdbcUtils.core;
  */
 public class DaoException extends RuntimeException {
 
-	/**
+    private static final long serialVersionUID = 1L;
+
+    /**
 	 * 构造方法又称构造器，不写默认在类加载时注入一个无参构成方法
 	 * 默认的构造方法建议每次都写上
 	 * 如果有有参数的构造方法，则不默认生成无参构成方法

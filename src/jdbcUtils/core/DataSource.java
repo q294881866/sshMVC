@@ -12,15 +12,15 @@ public class DataSource {
 	private int init = 1;
 	private int max = 1 << 6;
 	int currentCount = 0;
-	private MyJdbc jdbc;
+	private JdbcConnect jdbc;
 
 	LinkedList<Connection> connectionsPool = new LinkedList<Connection>();
 	
-	public DataSource(MyJdbc jdbc) {
+	public DataSource(JdbcConnect jdbc) {
 		this(jdbc, 0, 0);
 	}
 
-	public DataSource(MyJdbc jdbc,int init,int max) {
+	public DataSource(JdbcConnect jdbc,int init,int max) {
 		if (init>0)	this.init = init;
 		if (max>this.init)	this.max = max;
 		this.jdbc = jdbc;
@@ -36,7 +36,6 @@ public class DataSource {
 	}
 
 	public Connection getConnection() throws SQLException {
-		// synchronized (connectionsPool) {//没必要用并发控制
 		if (this.connectionsPool.size() > 0)
 			return this.connectionsPool.removeFirst();
 

@@ -13,8 +13,8 @@ import org.jiumao.talentMarket.domain.ApproveSql;
 import org.jiumao.talentMarket.domain.EmployeeSql;
 
 import jdbcUtils.DBUtil;
-import jdbcUtils.core.MyJdbc;
-import jdbcUtils.core.MySqlSessionFactory;
+import jdbcUtils.core.JdbcConnect;
+import jdbcUtils.core.SqlSessionFactory;
 import jdbcUtils.core.Session;
 import jdbcUtils.core.SessionFactory;
 
@@ -24,7 +24,7 @@ public abstract class DaoSupportImpl<T extends BaseBean> implements DaoSupport<T
 	/**
 	 * MySQL写服务器连接工程
 	 */
-	protected static SessionFactory mySqlWriterSessionFactory = MySqlSessionFactory
+	protected static SessionFactory mySqlWriterSessionFactory = SqlSessionFactory
 			.getSessionFactory("jdbc:mysql://127.0.0.1:3306/test", "root",
 					"", "com.mysql.jdbc.Driver");
 	protected Session session;//每个dao对象共享一个session
